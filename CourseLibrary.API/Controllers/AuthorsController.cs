@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CourseLibrary.API.Services;
+using CourseLibrary.API.Models;
+using CourseLibrary.API.Helpers;
 
 namespace CourseLibrary.API.Controllers
 {
@@ -23,7 +25,18 @@ namespace CourseLibrary.API.Controllers
         public IActionResult GetAuthors()
         {
             var authors = _courseLibraryRepository.GetAuthors();
-            return Ok(authors);
+            var authorsModel = new List<AuthorDto>();
+            foreach (var author in authors)
+            {
+                authorsModel.Add(new AuthorDto()
+                {
+                    Id = author.Id,
+                    Name = $"{author.FirstName} {author.LastName}",
+                    MainCategory = author.MainCategory,
+                    Age = author.DateOfBirth.GetCurrentAge()
+                });
+            }
+            return Ok(authorsModel);
 
         }
         [HttpGet("{authorId:guid}")] // use guid type if we have multiple end points with different id type to distinguise it 

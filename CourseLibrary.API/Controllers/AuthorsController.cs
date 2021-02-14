@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CourseLibrary.API.Services;
 using CourseLibrary.API.Models;
 using CourseLibrary.API.Helpers;
+using AutoMapper;
 
 namespace CourseLibrary.API.Controllers
 {
@@ -15,28 +16,20 @@ namespace CourseLibrary.API.Controllers
     public class AuthorsController : ControllerBase
     {
         private ICourseLibraryRepository _courseLibraryRepository;
-        public AuthorsController(ICourseLibraryRepository courseLibraryRepository)
+        private IMapper _mapper;
+        public AuthorsController(ICourseLibraryRepository courseLibraryRepository, IMapper mapper)
         {
             _courseLibraryRepository = courseLibraryRepository ??
                 throw new ArgumentNullException(nameof(courseLibraryRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
         }
         [HttpGet()]
-        public IActionResult GetAuthors()
+        public ActionResult<IEnumerable<AuthorDto>> GetAuthors()
         {
             var authors = _courseLibraryRepository.GetAuthors();
-            var authorsModel = new List<AuthorDto>();
-            foreach (var author in authors)
-            {
-                authorsModel.Add(new AuthorDto()
-                {
-                    Id = author.Id,
-                    Name = $"{author.FirstName} {author.LastName}",
-                    MainCategory = author.MainCategory,
-                    Age = author.DateOfBirth.GetCurrentAge()
-                });
-            }
-            return Ok(authorsModel);
+
+            return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authors));
 
         }
         [HttpGet("{authorId:guid}")] // use guid type if we have multiple end points with different id type to distinguise it 
@@ -48,7 +41,7 @@ namespace CourseLibrary.API.Controllers
             {
                 return NotFound();
             }
-            return Ok(author);
+            return Ok(_mapper.Map<AuthorDto>(author));
         }
     }
 }

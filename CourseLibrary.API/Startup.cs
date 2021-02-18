@@ -55,6 +55,19 @@ namespace CourseLibrary.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                // app.UseExceptionHandler(); //default middele ware used for handilling exception in production 
+               //if we want to custom message for 500 exception 
+                app.UseExceptionHandler(appBuilder =>
+                {
+                    appBuilder.Run(async context =>
+                    {
+                        context.Response.StatusCode = 500;
+                        await context.Response.WriteAsync("An Unexpected Fault happened. Try again later");
+                    });
+                });
+            }
 
             app.UseRouting();
             app.UseCors();

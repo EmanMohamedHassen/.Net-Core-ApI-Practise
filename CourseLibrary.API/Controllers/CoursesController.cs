@@ -23,6 +23,7 @@ namespace CourseLibrary.API.Controllers
 
         }
         [HttpGet]
+        [HttpHead]
         public ActionResult<IEnumerable<CourseDto>> GetCoursesForAuthor(Guid authorId)
         {
             if (!_courseLibraryRepository.AuthorExists(authorId))

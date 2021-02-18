@@ -7,6 +7,8 @@ using CourseLibrary.API.Services;
 using CourseLibrary.API.Models;
 using CourseLibrary.API.Helpers;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace CourseLibrary.API.Controllers
 {

@@ -36,16 +36,26 @@ namespace CourseLibrary.API.Controllers
             return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authors));
 
         }
-        [HttpGet("{authorId:guid}")] // use guid type if we have multiple end points with different id type to distinguise it 
+        [HttpGet("{authorId:guid}",Name ="GetAuthor")] // use guid type if we have multiple end points with different id type to distinguise it 
         public IActionResult GetAuthor(Guid authorId)
         {
             
         var author = _courseLibraryRepository.GetAuthor(authorId);
-            if (author == null)
-            {
-                return NotFound();
-            }
+            if (author == null) return NotFound();
             return Ok(_mapper.Map<AuthorDto>(author));
+        }
+
+        [HttpPost]
+        public ActionResult<AuthorDto> CreateAuthor(AuthorForCreationDto author)
+        {
+            var authorEntity = _mapper.Map<Entities.Author>(author);
+            _courseLibraryRepository.AddAuthor(authorEntity);
+            _courseLibraryRepository.Save();
+            var authorToReturn = _mapper.Map<AuthorDto>(authorEntity);
+            return CreatedAtRoute("GetAuthor",
+                new { authorId = authorToReturn.Id },
+                authorToReturn
+                );
         }
     }
 }

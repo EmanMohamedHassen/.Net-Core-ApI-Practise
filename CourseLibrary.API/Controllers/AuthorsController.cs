@@ -9,6 +9,7 @@ using CourseLibrary.API.Helpers;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using CourseLibrary.API.ReasourceParameters;
 
 namespace CourseLibrary.API.Controllers
 {
@@ -28,9 +29,9 @@ namespace CourseLibrary.API.Controllers
         }
         [HttpGet()]
         [HttpHead]
-        public ActionResult<IEnumerable<AuthorDto>> GetAuthors(string mainCategory,string searcQuery)
+        public ActionResult<IEnumerable<AuthorDto>> GetAuthors([FromQuery] AuthorsResourceParameters parameters) // get data of parameters from url query
         {
-            var authors = _courseLibraryRepository.GetAuthors(mainCategory, searcQuery);
+            var authors = _courseLibraryRepository.GetAuthors(parameters);
 
             return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authors));
 

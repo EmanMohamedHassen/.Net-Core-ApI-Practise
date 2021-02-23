@@ -1,5 +1,6 @@
 ﻿using CourseLibrary.API.DbContexts;
-using CourseLibrary.API.Entities; 
+using CourseLibrary.API.Entities;
+using CourseLibrary.API.ReasourceParameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,28 +122,29 @@ namespace CourseLibrary.API.Services
         {
             return _context.Authors.ToList<Author>();
         }
-        public IEnumerable<Author> GetAuthors(string mainCategory, string searcQuery)
+        public IEnumerable<Author> GetAuthors(AuthorsResourceParameters parameters)
         {
-            if (string.IsNullOrEmpty(mainCategory) && string.IsNullOrEmpty(searcQuery))
+            if(parameters == null)
+            {
+                throw new ArgumentNullException(nameof(parameters));
+            }
+            if (string.IsNullOrEmpty(parameters.MainCategory) && string.IsNullOrEmpty(parameters.SearchQuery))
             {
                return GetAuthors();
             }
-            // return GetAuthors().Where(x => x.MainCategory == mainCategory).ToList();
             var collection = _context.Authors as IQueryable<Author>;
-            if (!string.IsNullOrEmpty(mainCategory))
+            if (!string.IsNullOrEmpty(parameters.MainCategory))
             {
-                mainCategory = mainCategory.Trim();
-               collection = collection.Where(a => a.MainCategory == mainCategory);
+                parameters.MainCategory = parameters.MainCategory.Trim();
+               collection = collection.Where(a => a.MainCategory == parameters.MainCategory);
 
             }
-            if (!string.IsNullOrEmpty(searcQuery))
+            if (!string.IsNullOrEmpty(parameters.SearchQuery))
             {
-                searcQuery.Trim();
-                collection = collection.Where(x => x.MainCategory.Contains(searcQuery) || x.FirstName.Contains(searcQuery) || x.LastName.Contains(searcQuery));
+                parameters.SearchQuery.Trim();
+                collection = collection.Where(x => x.MainCategory.Contains(parameters.SearchQuery) || x.FirstName.Contains(parameters.SearchQuery) || x.LastName.Contains(parameters.SearchQuery));
             }
             return collection.ToList();
-            //mainCategory = mainCategory.Trim();
-            //return _context.Authors.Where(a => a.MainCategory == mainCategory).ToList();
         }
          
         public IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds)

@@ -1,4 +1,5 @@
 ﻿using CourseLibrary.API.Entities;
+using CourseLibrary.API.ReasourceParameters;
 using System;
 using System.Collections.Generic;
 
@@ -13,7 +14,7 @@ namespace CourseLibrary.API.Services
         void DeleteCourse(Course course);
         IEnumerable<Author> GetAuthors();
         Author GetAuthor(Guid authorId);
-        IEnumerable<Author> GetAuthors(string mainCategory, string searcQuery);
+        IEnumerable<Author> GetAuthors(AuthorsResourceParameters parameters);
         IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds);
         void AddAuthor(Author author);
         void DeleteAuthor(Author author);

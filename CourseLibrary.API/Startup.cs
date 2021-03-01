@@ -37,7 +37,7 @@ namespace CourseLibrary.API
             services.AddControllers(setupAction =>
             {
                 setupAction.ReturnHttpNotAcceptable = true;
-                //setupAction.OutputFormatters.Add(
+                //setupAction.OutputFormatters.Add( 
                 //    new XmlDataContractSerializerOutputFormatter());
             }).AddXmlDataContractSerializerFormatters()
            .ConfigureApiBehaviorOptions(setupAction =>

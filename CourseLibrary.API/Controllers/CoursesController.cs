@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CourseLibrary.API.Models;
 using CourseLibrary.API.Services;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -64,5 +65,40 @@ namespace CourseLibrary.API.Controllers
                 courseToReturn
                 );
         }
+
+        [HttpPut("{courseId}")]
+        public IActionResult UpdateCourseForAuthor(Guid authorId , Guid courseId, CourseForUpdateDto course)
+        {
+            if (!_courseLibraryRepository.AuthorExists(authorId))
+            {
+                return NotFound();
+            }
+            var courseFromRepo = _courseLibraryRepository.GetCourse(authorId, courseId);
+            if (courseFromRepo == null)
+            {
+                // return NotFound();
+                // to use put for creation => upsert 
+                var courseToAdd = _mapper.Map<Entities.Course>(course);
+                courseToAdd.Id = courseId;
+                _courseLibraryRepository.AddCourse(authorId, courseToAdd);
+                _courseLibraryRepository.Save();
+                var courseToReturn = _mapper.Map<CourseDto>(courseToAdd);
+                return CreatedAtRoute("GetCourseForAuthor",
+                 new { authorId = authorId, courseId = courseToReturn.Id },
+                 courseToReturn
+                 );
+
+            }
+            // use auto mapper to map the entity tp a courseForUpdateDto
+            //applay the update field values to that dto 
+            // map the courseForUpdateDto back to an entity (all in one step)
+            _mapper.Map(course, courseFromRepo);
+            _courseLibraryRepository.UpdateCourse(courseFromRepo);
+            _courseLibraryRepository.Save();
+            //  return Ok(_mapper.Map<CourseDto>(courseFromRepo));
+            return NoContent();
+
+        }
+
     }
 }

@@ -61,3 +61,8 @@ D:\Api\CourseLibrary\CourseLibrary.API\bin\Debug\netcoreapp3.1\Humanizer.dll
 D:\Api\CourseLibrary\CourseLibrary.API\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
 D:\Api\CourseLibrary\CourseLibrary.API\bin\Debug\netcoreapp3.1\AutoMapper.dll
 D:\Api\CourseLibrary\CourseLibrary.API\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Api\CourseLibrary\CourseLibrary.API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+D:\Api\CourseLibrary\CourseLibrary.API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\Api\CourseLibrary\CourseLibrary.API\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+D:\Api\CourseLibrary\CourseLibrary.API\obj\Debug\netcoreapp3.1\CourseLibrary.API.csproj.CoreCompileInputs.cache
+D:\Api\CourseLibrary\CourseLibrary.API\obj\Debug\netcoreapp3.1\CourseLibrary.API.MvcApplicationPartsAssemblyInfo.cache

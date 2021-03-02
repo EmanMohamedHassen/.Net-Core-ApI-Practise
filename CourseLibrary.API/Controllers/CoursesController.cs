@@ -142,6 +142,22 @@ namespace CourseLibrary.API.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{courseId}")]
+        public IActionResult DeleteCourseForAuthorId(Guid authorId, Guid courseId)
+        {
+            if (!_courseLibraryRepository.AuthorExists(authorId))
+            {
+                return NotFound();
+            }
+            var course = _courseLibraryRepository.GetCourse(authorId, courseId);
+            if (course == null)
+            {
+                return NotFound();
+            }
+            _courseLibraryRepository.DeleteCourse(course);
+            _courseLibraryRepository.Save();
+            return NoContent();
+        }
         public override ActionResult ValidationProblem([ActionResultObjectValue] ModelStateDictionary modelStateDictionary)
         {
             var options = HttpContext.RequestServices.GetRequiredService<IOptions<ApiBehaviorOptions>>();

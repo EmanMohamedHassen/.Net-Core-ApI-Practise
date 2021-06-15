@@ -1,6 +1,5 @@
 D:\Api\CourseLibrary\CourseLibrary.API\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\Api\CourseLibrary\CourseLibrary.API\bin\Debug\netcoreapp3.1\appsettings.json
-D:\Api\CourseLibrary\CourseLibrary.API\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 D:\Api\CourseLibrary\CourseLibrary.API\bin\Debug\netcoreapp3.1\CourseLibrary.API.exe
 D:\Api\CourseLibrary\CourseLibrary.API\bin\Debug\netcoreapp3.1\CourseLibrary.API.deps.json
 D:\Api\CourseLibrary\CourseLibrary.API\bin\Debug\netcoreapp3.1\CourseLibrary.API.runtimeconfig.json
@@ -66,3 +65,4 @@ D:\Api\CourseLibrary\CourseLibrary.API\bin\Debug\netcoreapp3.1\Microsoft.AspNetC
 D:\Api\CourseLibrary\CourseLibrary.API\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 D:\Api\CourseLibrary\CourseLibrary.API\obj\Debug\netcoreapp3.1\CourseLibrary.API.csproj.CoreCompileInputs.cache
 D:\Api\CourseLibrary\CourseLibrary.API\obj\Debug\netcoreapp3.1\CourseLibrary.API.MvcApplicationPartsAssemblyInfo.cache
+D:\Api\CourseLibrary\CourseLibrary.API\obj\Debug\netcoreapp3.1\scopedcss\bundle\CourseLibrary.API.styles.css

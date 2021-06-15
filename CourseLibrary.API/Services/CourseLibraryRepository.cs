@@ -1,5 +1,6 @@
 ﻿using CourseLibrary.API.DbContexts;
 using CourseLibrary.API.Entities;
+using CourseLibrary.API.Helpers;
 using CourseLibrary.API.ReasourceParameters;
 using System;
 using System.Collections.Generic;
@@ -122,16 +123,16 @@ namespace CourseLibrary.API.Services
         {
             return _context.Authors.ToList<Author>();
         }
-        public IEnumerable<Author> GetAuthors(AuthorsResourceParameters parameters)
+        public PagedList<Author> GetAuthors(AuthorsResourceParameters parameters)
         {
             if(parameters == null)
             {
                 throw new ArgumentNullException(nameof(parameters));
             }
-            if (string.IsNullOrEmpty(parameters.MainCategory) && string.IsNullOrEmpty(parameters.SearchQuery))
-            {
-               return GetAuthors();
-            }
+            //if (string.IsNullOrEmpty(parameters.MainCategory) && string.IsNullOrEmpty(parameters.SearchQuery))
+            //{
+            //   return GetAuthors();
+            //}
             var collection = _context.Authors as IQueryable<Author>;
             if (!string.IsNullOrEmpty(parameters.MainCategory))
             {
@@ -144,7 +145,10 @@ namespace CourseLibrary.API.Services
                 parameters.SearchQuery.Trim();
                 collection = collection.Where(x => x.MainCategory.Contains(parameters.SearchQuery) || x.FirstName.Contains(parameters.SearchQuery) || x.LastName.Contains(parameters.SearchQuery));
             }
-            return collection.ToList();
+            return PagedList<Author>.Create(collection, parameters.PageNumber, parameters.PageSize);
+            //collection.Skip( (parameters.PageNumber-1) * parameters.PageSize)
+            //    .Take(parameters.PageSize)
+            //    .ToList();
         }
          
         public IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds)
